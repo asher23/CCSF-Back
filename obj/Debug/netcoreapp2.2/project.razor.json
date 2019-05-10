@@ -1,0 +1,15 @@
+{
+  "FilePath": "/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/FreshmanCSForum.API.csproj",
+  "Configuration": {
+    "ConfigurationName": "MVC-2.1",
+    "LanguageVersion": "2.1",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-2.1"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": null,
+  "RootNamespace": "FreshmanCSForum.API",
+  "Documents": []
+}

@@ -1,0 +1,14 @@
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/bin/Debug/netcoreapp2.2/FreshmanCSForum.API.deps.json
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/bin/Debug/netcoreapp2.2/FreshmanCSForum.API.runtimeconfig.json
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/bin/Debug/netcoreapp2.2/FreshmanCSForum.API.runtimeconfig.dev.json
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/bin/Debug/netcoreapp2.2/FreshmanCSForum.API.dll
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/bin/Debug/netcoreapp2.2/FreshmanCSForum.API.pdb
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.csprojAssemblyReference.cache
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.csproj.CoreCompileInputs.cache
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.RazorAssemblyInfo.cache
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.RazorAssemblyInfo.cs
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.AssemblyInfoInputs.cache
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.AssemblyInfo.cs
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.RazorTargetAssemblyInfo.cache
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.dll
+/Users/abrarsher/Desktop/Projects/UdemyApp/FreshmanCSForum.API/obj/Debug/netcoreapp2.2/FreshmanCSForum.API.pdb
