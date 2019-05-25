@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace FreshmanCSForum.API.Models
 {
-  public class SubSection
+  public class Section
   {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
@@ -20,8 +20,5 @@ namespace FreshmanCSForum.API.Models
 
     [BsonElement("RankNumber")]
     public int RankNumber { get; set; }
-
-    [BsonElement("InnerSubSection")]
-    public List<SubSection> InnerSubSections { get; set; }
   }
 }

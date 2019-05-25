@@ -38,19 +38,28 @@ namespace FreshmanCSForum.API.Data
           localField: g => g.Id,
           foreignField: f => f.PostId,
           @as: (GuideWithComments gwc) => gwc.Comments
-        ).Project(p => new { p.Id, p.Title, p.SubSections, p.UserId, Comments = p.Comments })
+        ).Project(p => new { p.Id, p.Title, p.Sections, p.CreatorId, Comments = p.Comments, p.Description })
         .ToListAsync();
 
       GuideWithComments guideWithComments = new GuideWithComments
       {
         Id = query[0].Id,
         Title = query[0].Title,
-        SubSections = query[0].SubSections,
-        UserId = query[0].UserId,
+        Sections = query[0].Sections,
+        CreatorId = query[0].CreatorId,
         Comments = query[0].Comments,
+        Description = query[0].Description
       };
 
+
       return guideWithComments;
+    }
+
+    public async Task<string> GetCreatorId(string id)
+    {
+      Guide guide = await _guides.Find(Builders<Guide>.Filter.Eq(x => x.Id, id)).FirstOrDefaultAsync();
+
+      return guide.CreatorId;
     }
 
     public Task Create(Guide guide)

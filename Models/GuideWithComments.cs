@@ -13,13 +13,16 @@ namespace FreshmanCSForum.API.Models
     [BsonElement("Title")]
     public string Title { get; set; }
 
-    [BsonElement("SubSections")]
-    public List<SubSection> SubSections { get; set; }
+    [BsonElement("Sections")]
+    public List<Section> Sections { get; set; }
 
-    [BsonElement("UserId")]
-    public string UserId { get; set; }
+    [BsonElement("CreatorId")]
+    public string CreatorId { get; set; }
 
     [BsonElement("Comments")]
     public IEnumerable<Comment> Comments { get; set; }
+
+    [BsonElement]
+    public string Description { get; set; }
   }
 }

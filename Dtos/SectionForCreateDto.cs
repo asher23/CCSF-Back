@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FreshmanCSForum.API.Dtos
 {
-  public class SubSectionForCreateDto
+  public class SectionForCreateDto
   {
     [Required]
     public string Title { get; set; }
@@ -15,6 +15,5 @@ namespace FreshmanCSForum.API.Dtos
 
     public int RankNumber { get; set; }
 
-    public List<SubSectionForCreateDto> InnerSubSections { get; set; }
   }
 }

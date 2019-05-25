@@ -13,11 +13,12 @@ namespace FreshmanCSForum.API.Helpers
     {
       CreateMap<UserForRegisterDto, User>();
       CreateMap<GuideForUpdateAndRegisterDto, Guide>()
-      .ForMember(dest => dest.SubSections, opt =>
+      .ForMember(dest => dest.Sections, opt =>
         {
-          opt.MapFrom(src => src.SubSections);
+          opt.MapFrom(src => src.Sections);
         });
-      CreateMap<SubSectionForCreateDto, SubSection>();
+      CreateMap<GuideForRegisterDto, Guide>();
+      CreateMap<SectionForCreateDto, Section>();
       CreateMap<CodeLabForCreateDto, CodeLab>();
       CreateMap<CommentForCreateDto, Comment>();
       CreateMap<UserForUpdateDto, User>();

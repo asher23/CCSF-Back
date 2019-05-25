@@ -13,5 +13,6 @@ namespace FreshmanCSForum.API.Data.Interfaces
     Task<Guide> Update(string id, Guide guide);
     Task<GuideWithComments> AddComment(Comment comment);
 
+    Task<string> GetCreatorId(string id);
   }
 }

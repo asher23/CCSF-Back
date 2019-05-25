@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -30,15 +31,22 @@ namespace FreshmanCSForum.API.Controllers
     [HttpPut("{id}")]
     public async Task<ActionResult<string>> Update(string id, [FromBody] GuideForUpdateAndRegisterDto guideForUpdateAndRegisterDto)
     {
+      string currUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+      string creatorId = await _guidesService.GetCreatorId(id);
+
+      if (currUserId != creatorId) return StatusCode(401);
+
       Guide guide = _mapper.Map<Guide>(guideForUpdateAndRegisterDto);
       Guide updatedGuide = await _guidesService.Update(id, guide);
       return Ok(updatedGuide);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(GuideForUpdateAndRegisterDto guideForRegisterDto)
+    public async Task<IActionResult> Create(GuideForRegisterDto guideForRegisterDto)
     {
+      guideForRegisterDto.CreatorId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
       Guide guideToCreate = _mapper.Map<Guide>(guideForRegisterDto);
+      guideToCreate.Sections = new List<Section>();
       await _guidesService.Create(guideToCreate);
       return CreatedAtRoute("GetGuide", new { id = guideToCreate.Id }, guideToCreate);
     }

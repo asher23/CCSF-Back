@@ -9,7 +9,9 @@ namespace FreshmanCSForum.API.Dtos
     // [Required]
     public string Title { get; set; }
 
-    public List<SubSectionForCreateDto> SubSections { get; set; }
+    // [Required]
+    public string Description { get; set; }
+    public List<SectionForCreateDto> Sections { get; set; }
 
     // [Required]
     public string Creator { get; set; }
