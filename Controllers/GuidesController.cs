@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using FreshmanCSForum.API.Data;
 using FreshmanCSForum.API.Data.Interfaces;
 using FreshmanCSForum.API.Dtos;
@@ -20,12 +22,23 @@ namespace FreshmanCSForum.API.Controllers
     private readonly IMapper _mapper;
     private readonly IGuidesService _guidesService;
     private readonly ICommentsService _commentsService;
+    private readonly IConfiguration _config;
+    private Cloudinary _cloudinary;
 
-    public GuidesController(IMapper mapper, IGuidesService guidesService, ICommentsService commentsService)
+    public GuidesController(IMapper mapper, IGuidesService guidesService, ICommentsService commentsService, IConfiguration config)
     {
       _mapper = mapper;
       _guidesService = guidesService;
       _commentsService = commentsService;
+      _config = config;
+
+      Account acc = new Account(
+        _config.GetSection("CloudinarySettings:CloudName").Value,
+        _config.GetSection("CloudinarySettings:ApiKey").Value,
+        _config.GetSection("CloudinarySettings:ApiSecret").Value
+      );
+
+      _cloudinary = new Cloudinary(acc);
     }
 
     [HttpPut("{id}")]
@@ -36,6 +49,47 @@ namespace FreshmanCSForum.API.Controllers
 
       if (currUserId != creatorId) return StatusCode(401);
 
+      foreach (PhotoForCreationDto photo in guideForUpdateAndRegisterDto.Photos)
+      {
+        if (photo.File != null)
+        {
+          var file = photo.File;
+          var uploadResult = new ImageUploadResult();
+          if (file.Length > 0)
+          {
+            var uploadParams = new ImageUploadParams()
+            {
+              File = new FileDescription(file)
+            };
+            uploadResult = _cloudinary.Upload(uploadParams);
+          }
+          photo.Url = uploadResult.Uri.ToString();
+          photo.PublicId = uploadResult.PublicId;
+        }
+
+      }
+      foreach (SectionForCreateDto section in guideForUpdateAndRegisterDto.Sections)
+      {
+        foreach (PhotoForCreationDto photo in section.Photos)
+        {
+          if (photo.File != null)
+          {
+            var file = photo.File;
+            var uploadResult = new ImageUploadResult();
+            if (file.Length > 0)
+            {
+              var uploadParams = new ImageUploadParams()
+              {
+                File = new FileDescription(file)
+                // Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+              };
+              uploadResult = _cloudinary.Upload(uploadParams);
+            }
+            photo.Url = uploadResult.Uri.ToString();
+            photo.PublicId = uploadResult.PublicId;
+          }
+        }
+      }
       Guide guide = _mapper.Map<Guide>(guideForUpdateAndRegisterDto);
       Guide updatedGuide = await _guidesService.Update(id, guide);
       return Ok(updatedGuide);
@@ -60,6 +114,7 @@ namespace FreshmanCSForum.API.Controllers
       return Ok(guide);
     }
 
+
     [HttpGet(Name = "GetGuides")]
     [AllowAnonymous]
     public async Task<IActionResult> Get()
@@ -68,9 +123,22 @@ namespace FreshmanCSForum.API.Controllers
       return Ok(guides);
     }
 
+    [HttpGet("profile/{id:length(24)}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAllForProfile(string id)
+    {
+      var guides = await _guidesService.GetAllForProfile(id);
+      return Ok(guides);
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
+      string currUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+      string creatorId = await _guidesService.GetCreatorId(id);
+
+      if (currUserId != creatorId) return StatusCode(401);
+
       await _guidesService.Delete(id);
       return Ok();
     }

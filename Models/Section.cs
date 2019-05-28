@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FreshmanCSForum.API.Dtos;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -20,5 +21,9 @@ namespace FreshmanCSForum.API.Models
 
     [BsonElement("RankNumber")]
     public int RankNumber { get; set; }
+
+    [BsonElement("Photos")]
+    public List<Photo> Photos { get; set; }
+
   }
 }

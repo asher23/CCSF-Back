@@ -16,6 +16,6 @@ namespace FreshmanCSForum.API.Dtos
     // [Required]
     public string Creator { get; set; }
 
-
+    public List<PhotoForCreationDto> Photos { get; set; }
   }
 }

@@ -15,5 +15,7 @@ namespace FreshmanCSForum.API.Dtos
 
     public int RankNumber { get; set; }
 
+    public List<PhotoForCreationDto> Photos { get; set; }
+
   }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FreshmanCSForum.API.Data;
 using FreshmanCSForum.API.Data.Interfaces;
+using FreshmanCSForum.API.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 // using FreshmanCSForum.API.Services;
@@ -87,6 +88,7 @@ namespace FreshmanCSForum.API
                   builder.AllowAnyMethod();
                 });
       });
+      services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
       services.AddAutoMapper();
     }
 

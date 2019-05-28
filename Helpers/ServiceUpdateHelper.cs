@@ -11,7 +11,8 @@ namespace FreshmanCSForum.API.Helpers
       string mongoQuery = "";
       if (guide.Title != null) mongoQuery += ", Title: '" + guide.Title + "'";
       if (guide.Description != null) mongoQuery += ", Description: '" + guide.Description + "'";
-      if (guide.CreatorId != null) mongoQuery += ", Creator: '" + guide.CreatorId + "' ";
+      if (guide.CreatorId != null) mongoQuery += ", CreatorId: '" + guide.CreatorId + "' ";
+      if (guide.Sections != null) mongoQuery += ", Sections: '" + guide.Sections + "' ";
       return createUpdate("{" + mongoQuery.Substring(1) + "}");
 
     }

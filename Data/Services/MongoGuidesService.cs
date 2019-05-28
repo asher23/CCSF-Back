@@ -29,6 +29,11 @@ namespace FreshmanCSForum.API.Data
       return await _guides.Find(Builders<Guide>.Filter.Empty).ToListAsync();
     }
 
+    public async Task<IEnumerable<Guide>> GetAllForProfile(string creatorId)
+    {
+      return await _guides.Find(Builders<Guide>.Filter.Eq(x => x.CreatorId, creatorId)).ToListAsync();
+    }
+
     public async Task<GuideWithComments> GetOne(string id)
     {
       var query = await _guides.Aggregate()
@@ -38,7 +43,7 @@ namespace FreshmanCSForum.API.Data
           localField: g => g.Id,
           foreignField: f => f.PostId,
           @as: (GuideWithComments gwc) => gwc.Comments
-        ).Project(p => new { p.Id, p.Title, p.Sections, p.CreatorId, Comments = p.Comments, p.Description })
+        ).Project(p => new { p.Id, p.Title, p.Sections, p.CreatorId, Comments = p.Comments, p.Description, p.Photos })
         .ToListAsync();
 
       GuideWithComments guideWithComments = new GuideWithComments
@@ -48,7 +53,8 @@ namespace FreshmanCSForum.API.Data
         Sections = query[0].Sections,
         CreatorId = query[0].CreatorId,
         Comments = query[0].Comments,
-        Description = query[0].Description
+        Description = query[0].Description,
+        Photos = query[0].Photos
       };
 
 
@@ -69,9 +75,18 @@ namespace FreshmanCSForum.API.Data
 
     public async Task<Guide> Update(string id, Guide guide)
     {
+      var updateList = new List<UpdateDefinition<Guide>>();
+      // var update = Builders<Guide>.Update.Set("Title", guide.Title);
+      if (guide.Photos != null) updateList.Add(Builders<Guide>.Update.Set("Photos", guide.Photos));
+      if (guide.Sections != null) updateList.Add(Builders<Guide>.Update.Set("Sections", guide.Sections));
+      if (guide.Title != null) updateList.Add(Builders<Guide>.Update.Set("Title", guide.Title));
+      if (guide.Description != null) updateList.Add(Builders<Guide>.Update.Set("Description", guide.Description));
+      if (guide.CreatorId != null) updateList.Add(Builders<Guide>.Update.Set("CreatorId", guide.CreatorId));
+      var finalUpdate = Builders<Guide>.Update.Combine(updateList);
       var result = await _guides.FindOneAndUpdateAsync(
         Builders<Guide>.Filter.Eq(x => x.Id, id),
-        UpdateBuilders.getUpdate(guide),
+        // UpdateBuilders.getUpdate(guide),
+        finalUpdate,
         new FindOneAndUpdateOptions<Guide> { ReturnDocument = ReturnDocument.After }
       );
       return result;

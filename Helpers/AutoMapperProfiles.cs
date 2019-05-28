@@ -16,9 +16,18 @@ namespace FreshmanCSForum.API.Helpers
       .ForMember(dest => dest.Sections, opt =>
         {
           opt.MapFrom(src => src.Sections);
+        })
+      .ForMember(dest => dest.Photos, opt =>
+        {
+          opt.MapFrom(src => src.Photos);
         });
       CreateMap<GuideForRegisterDto, Guide>();
-      CreateMap<SectionForCreateDto, Section>();
+      CreateMap<SectionForCreateDto, Section>()
+        .ForMember(dest => dest.Photos, opt =>
+        {
+          opt.MapFrom(src => src.Photos);
+        });
+      CreateMap<PhotoForCreationDto, Photo>();
       CreateMap<CodeLabForCreateDto, CodeLab>();
       CreateMap<CommentForCreateDto, Comment>();
       CreateMap<UserForUpdateDto, User>();

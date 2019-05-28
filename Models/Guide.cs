@@ -19,6 +19,9 @@ namespace FreshmanCSForum.API.Models
     [BsonElement("Sections")]
     public List<Section> Sections { get; set; }
 
+    [BsonElement("Photos")]
+    public List<Photo> Photos { get; set; }
+
     [BsonElement("CreatorId")]
     public string CreatorId { get; set; }
   }

@@ -24,5 +24,8 @@ namespace FreshmanCSForum.API.Models
 
     [BsonElement]
     public string Description { get; set; }
+
+    [BsonElement("Photos")]
+    public List<Photo> Photos { get; set; }
   }
 }

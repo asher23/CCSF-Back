@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FreshmanCSForum.API.Dtos
@@ -12,5 +13,8 @@ namespace FreshmanCSForum.API.Dtos
 
     // [Required]
     public string CreatorId { get; set; }
+    public List<PhotoForCreationDto> Photos { get; set; }
+
+
   }
 }
