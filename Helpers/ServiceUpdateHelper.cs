@@ -20,10 +20,11 @@ namespace FreshmanCSForum.API.Helpers
     public static BsonDocument getUpdate(User user)
     {
       string mongoQuery = "";
-      if (user.UserName != null) mongoQuery += ", Username: '" + user.UserName + "'";
+      if (user.Username != null) mongoQuery += ", Username: '" + user.Username + "'";
       if (user.FirstName != null) mongoQuery += ", FirstName: '" + user.FirstName + "' ";
       if (user.LastName != null) mongoQuery += ", LastName: '" + user.LastName + "' ";
       if (user.Email != null) mongoQuery += ", Email: '" + user.Email + "' ";
+      if (user.Introduction != null) mongoQuery += ", Introduction: '" + user.Introduction + "' ";
       return createUpdate("{" + mongoQuery.Substring(1) + "}");
     }
 
@@ -33,7 +34,7 @@ namespace FreshmanCSForum.API.Helpers
       if (codeLab.Title != null) mongoQuery += ", Title: '" + codeLab.Title + "'";
       if (codeLab.Description != null) mongoQuery += ", Description: '" + codeLab.Description + "' ";
       if (codeLab.LookingFor != null) mongoQuery += ", LookingFor: '" + codeLab.LookingFor + "' ";
-      if (codeLab.FinalGoalURL != null) mongoQuery += ", FinalGoalURL: '" + codeLab.FinalGoalURL + "' ";
+      // if (codeLab.FinalGoalURL != null) mongoQuery += ", FinalGoalURL: '" + codeLab.FinalGoalURL + "' ";
       return createUpdate("{" + mongoQuery.Substring(1) + "}");
     }
 

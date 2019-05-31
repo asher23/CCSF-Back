@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "26203ce60e7604d5ba4d92bad86fa83e1ed60c46"
+    "signature": "dbcba35393aae843dc27ee23810584d4f2d56bb1"
   },
   "compilationOptions": {
     "defines": [
@@ -26,6 +26,7 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.0.0",
           "CloudinaryDotNet": "1.3.1",
+          "Microsoft.AspNet.SignalR": "2.4.1",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
@@ -98,6 +99,7 @@
           "lib/netstandard2.0/DnsClient.dll": {}
         }
       },
+      "Microsoft.AspNet.SignalR/2.4.1": {},
       "Microsoft.OpenApi/1.1.1": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
@@ -3727,6 +3729,13 @@
       "sha512": "sha512-P34wUkeqU4FoQiOMV8OjpdeDZKs4d3r+VlHuKJ6eO5feiZgna3+9MF5orHRUn3DAv1g/HPE5hlkGucmxmsFfBw==",
       "path": "dnsclient/1.2.0",
       "hashPath": "dnsclient.1.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNet.SignalR/2.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aYbLVE5toZwv/qaQ0BiIZRRwN/00WKYzGjaYUWIQuI91xZ50nnAymWD1sxCZFN9XXDRq8bevM5ET9GmAeOI/Nw==",
+      "path": "microsoft.aspnet.signalr/2.4.1",
+      "hashPath": "microsoft.aspnet.signalr.2.4.1.nupkg.sha512"
     },
     "Microsoft.OpenApi/1.1.1": {
       "type": "package",

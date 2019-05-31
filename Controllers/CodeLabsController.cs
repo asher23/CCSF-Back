@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using FreshmanCSForum.API.Data;
@@ -22,9 +24,9 @@ namespace FreshmanCSForum.API.Controllers
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<CodeLab>> Update(string id, [FromBody] CodeLabForCreateDto codeLabForCreateDto)
+    public async Task<ActionResult<CodeLab>> Update(string id, [FromBody] CodeLabForUpdateDto codeLabForUpdateDto)
     {
-      CodeLab codeLabChanges = _mapper.Map<CodeLab>(codeLabForCreateDto);
+      CodeLab codeLabChanges = _mapper.Map<CodeLab>(codeLabForUpdateDto);
       CodeLab updatedCodeLab = await _codeLabsService.Update(id, codeLabChanges);
       return Ok(updatedCodeLab);
     }
@@ -32,15 +34,61 @@ namespace FreshmanCSForum.API.Controllers
     [HttpPost]
     public async Task<IActionResult> Create(CodeLabForCreateDto codeLabForCreateDto)
     {
-      var codeLabToCreate = _mapper.Map<CodeLab>(codeLabForCreateDto);
+      string currUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+      CodeLab codeLabToCreate = _mapper.Map<CodeLab>(codeLabForCreateDto);
+      codeLabToCreate.LeadId = currUserId;
+      codeLabToCreate.MemberIds = new List<string> { currUserId };
+      codeLabToCreate.Applications = new List<Application> { };
+      codeLabToCreate.Chat = new Chat();
       await _codeLabsService.Create(codeLabToCreate);
       return Ok(codeLabToCreate);
+    }
+
+    [HttpPut("{id:length(24)}/apply")]
+    public async Task<IActionResult> Apply(string id, Application application)
+    {
+      application.Status = "applied";
+      CodeLabForReturnDto codeLabWithNewApplicant = await _codeLabsService.AddApplicant(id, application);
+      return Ok(codeLabWithNewApplicant);
+    }
+
+    [HttpPut("{id:length(24)}/acceptApplication/{applicantId:length(24)}")]
+    public async Task<IActionResult> AcceptApplication(string id, string applicantId)
+    {
+      string currUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+      CodeLabForReturnDto codeLabWithNewApplicant;
+      try
+      {
+        codeLabWithNewApplicant = await _codeLabsService.AcceptApplication(id, applicantId, currUserId);
+      }
+      catch (System.UnauthorizedAccessException e)
+      {
+        return StatusCode(401);
+      }
+      return Ok(codeLabWithNewApplicant);
+    }
+
+
+    [HttpPut("{id:length(24)}/rejectApplication/{applicantId:length(24)}")]
+    public async Task<IActionResult> RejectApplication(string id, string applicantId)
+    {
+      string currUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+      CodeLabForReturnDto codeLabWithNewApplicant;
+      try
+      {
+        codeLabWithNewApplicant = await _codeLabsService.RejectApplication(id, applicantId, currUserId);
+      }
+      catch (System.UnauthorizedAccessException e)
+      {
+        return StatusCode(401);
+      }
+      return Ok(codeLabWithNewApplicant);
     }
 
     [HttpGet("{id:length(24)}")]
     public async Task<IActionResult> Get(string id)
     {
-      var codeLab = await _codeLabsService.GetOne(id);
+      CodeLabForReturnDto codeLab = await _codeLabsService.GetOne(id);
       if (codeLab == null) return NotFound();
       return Ok(codeLab);
     }

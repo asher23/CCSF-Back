@@ -10,5 +10,7 @@ namespace FreshmanCSForum.API.Data.Interfaces
     Task<User> GetOne(string id);
     Task Delete(string id);
     Task<User> Update(string id, User user);
+    Task<IEnumerable<User>> GetList(List<string> userIds);
+
   }
 }

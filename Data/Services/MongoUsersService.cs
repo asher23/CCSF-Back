@@ -33,9 +33,18 @@ namespace FreshmanCSForum.API.Data
 
     public async Task<User> Update(string id, User user)
     {
+      var updateList = new List<UpdateDefinition<User>>();
+      if (user.Photo != null) updateList.Add(Builders<User>.Update.Set("Photo", user.Photo));
+      if (user.FirstName != null) updateList.Add(Builders<User>.Update.Set("FirstName", user.FirstName));
+      if (user.LastName != null) updateList.Add(Builders<User>.Update.Set("LastName", user.LastName));
+      if (user.Username != null) updateList.Add(Builders<User>.Update.Set("Username", user.Username));
+      if (user.Email != null) updateList.Add(Builders<User>.Update.Set("Email", user.Email));
+      if (user.Introduction != null) updateList.Add(Builders<User>.Update.Set("Introduction", user.Introduction));
+      var finalUpdate = Builders<User>.Update.Combine(updateList);
+
       User result = await _users.FindOneAndUpdateAsync(
         Builders<User>.Filter.Eq(x => x.Id, id),
-        UpdateBuilders.getUpdate(user),
+        finalUpdate,
         new FindOneAndUpdateOptions<User> { ReturnDocument = ReturnDocument.After }
       );
       return result;
@@ -48,6 +57,17 @@ namespace FreshmanCSForum.API.Data
         Builders<User>.Update.Push(x => x.CodeLabIds, codeLabId)
         );
       return updateResult.IsAcknowledged;
+    }
+
+    public async Task<IEnumerable<User>> GetList(List<string> userIds)
+    {
+      List<User> users = new List<User>();
+      foreach (string userId in userIds)
+      {
+        User user = await _users.Find(Builders<User>.Filter.Eq(x => x.Id, userId)).FirstOrDefaultAsync();
+        users.Add(user);
+      }
+      return users;
     }
   }
 }

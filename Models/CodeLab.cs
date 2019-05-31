@@ -16,19 +16,32 @@ namespace FreshmanCSForum.API.Models
     [BsonElement("LeadId")]
     public string LeadId { get; set; }
 
+    [BsonElement("Chat")]
+    public Chat Chat { get; set; }
+
     [BsonElement("Description")]
     public string Description { get; set; }
+
+
+    [BsonElement("Goal")]
+    public string Goal { get; set; }
 
     [BsonElement("LookingFor")]
     public string LookingFor { get; set; }
 
-    [BsonElement("FinalGoalURL")]
-    public string FinalGoalURL { get; set; }
+    [BsonElement("Joining")]
+    public string Joining { get; set; }
 
     [BsonElement("MemberIds")]
     public List<string> MemberIds { get; set; }
 
+    [BsonElement("CommentIds")]
+    public List<string> CommentIds { get; set; }
+
     [BsonElement("Photos")]
     public List<Photo> Photos { get; set; }
+
+    [BsonElement("Applications")]
+    public List<Application> Applications { get; set; }
   }
 }

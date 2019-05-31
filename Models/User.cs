@@ -16,8 +16,8 @@ namespace FreshmanCSForum.API.Models
     [BsonElement("LastName")]
     public string LastName { get; set; }
 
-    [BsonElement("UserName")]
-    public string UserName { get; set; }
+    [BsonElement("Username")]
+    public string Username { get; set; }
 
     [BsonElement("Email")]
     public string Email { get; set; }
@@ -40,5 +40,8 @@ namespace FreshmanCSForum.API.Models
 
     [BsonElement("CodeLabIds")]
     public List<string> CodeLabIds { get; set; }
+
+    [BsonElement("Photo")]
+    public Photo Photo { get; set; }
   }
 }

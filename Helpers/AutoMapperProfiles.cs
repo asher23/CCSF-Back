@@ -28,7 +28,10 @@ namespace FreshmanCSForum.API.Helpers
           opt.MapFrom(src => src.Photos);
         });
       CreateMap<PhotoForCreationDto, Photo>();
+      CreateMap<CodeLabForUpdateDto, CodeLab>();
+      CreateMap<Application, ApplicationForReturnDto>();
       CreateMap<CodeLabForCreateDto, CodeLab>();
+      CreateMap<CodeLab, CodeLabForReturnDto>();
       CreateMap<CommentForCreateDto, Comment>();
       CreateMap<UserForUpdateDto, User>();
       CreateMap<User, UserForReturnDto>();

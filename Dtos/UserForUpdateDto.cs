@@ -4,7 +4,7 @@ namespace FreshmanCSForum.API.Dtos
 {
   public class UserForUpdateDto
   {
-    public string UserName { get; set; }
+    public string Username { get; set; }
 
     public string FirstName { get; set; }
 
@@ -12,5 +12,9 @@ namespace FreshmanCSForum.API.Dtos
 
     [EmailAddress]
     public string Email { get; set; }
+    public string Introduction { get; set; }
+
+    public PhotoForCreationDto Photo { get; set; }
+
   }
 }

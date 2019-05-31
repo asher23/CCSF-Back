@@ -58,8 +58,8 @@ namespace FreshmanCSForum.API
         {
           options.Cookie.HttpOnly = true;
           options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-          options.Cookie.SameSite = SameSiteMode.None;
           // options.Cookie.SameSite = SameSiteMode.None;
+          options.Cookie.SameSite = SameSiteMode.None;
           options.LoginPath = "/";
           options.Events.OnRedirectToLogin = (context) =>
           {
@@ -82,13 +82,14 @@ namespace FreshmanCSForum.API
         options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                  builder.WithOrigins("http://localhost:3000", "http://www.contoso.com");
+                  builder.WithOrigins("http://localhost:3000", "http://www.contoso.com", "http://192.168.1.157:3000");
                   builder.AllowCredentials();
                   builder.AllowAnyHeader();
                   builder.AllowAnyMethod();
                 });
       });
       services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+      services.AddSignalR();
       services.AddAutoMapper();
     }
 
@@ -111,6 +112,10 @@ namespace FreshmanCSForum.API
       app.UseCookiePolicy();
       app.UseAuthentication();
       app.UseMvc();
+      app.UseSignalR(routes =>
+      {
+        routes.MapHub<ChatHub>("/chatHub");
+      });
     }
   }
 }

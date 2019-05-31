@@ -38,24 +38,24 @@ namespace FreshmanCSForum.API.Controllers
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register(UserForRegisterDto userForRegisterDto)
     {
-      userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
-      if (await _authService.UserExists(userForRegisterDto.UserName)) return BadRequest("UserName already exits");
+      userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+      if (await _authService.UserExists(userForRegisterDto.Username)) return BadRequest("Username already exits");
       var userToCreate = _mapper.Map<User>(userForRegisterDto);
-      User createdUserName = await _authService.Register(userToCreate, userForRegisterDto.Password);
+      User createdUsername = await _authService.Register(userToCreate, userForRegisterDto.Password);
       return Ok();
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
     {
-      var userFromRepo = await _authService.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
+      var userFromRepo = await _authService.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
       if (userFromRepo == null) return Unauthorized();
 
       var claims = new List<Claim>
       {
         new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-        new Claim(ClaimTypes.Name, userForLoginDto.UserName.ToString())
+        new Claim(ClaimTypes.Name, userForLoginDto.Username.ToString())
       };
 
       var identity = new ClaimsIdentity(claims, "Cookies");

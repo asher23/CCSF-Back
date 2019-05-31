@@ -15,7 +15,7 @@ namespace FreshmanCSForum.API.Data
     }
     public async Task<User> Login(string username, string password)
     {
-      var user = await _users.Find<User>(Builders<User>.Filter.Eq(x => x.UserName, username)).FirstOrDefaultAsync();
+      var user = await _users.Find<User>(Builders<User>.Filter.Eq(x => x.Username, username)).FirstOrDefaultAsync();
       if (user == null) return null;
       if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt)) return null;
       return user;
@@ -55,7 +55,7 @@ namespace FreshmanCSForum.API.Data
 
     public async Task<bool> UserExists(string username)
     {
-      if (await _users.CountDocumentsAsync(Builders<User>.Filter.Eq(x => x.UserName, username)) > 0)
+      if (await _users.CountDocumentsAsync(Builders<User>.Filter.Eq(x => x.Username, username)) > 0)
         return true;
 
       return false;
